@@ -1,6 +1,7 @@
 "use client";
-import { Badge, Card, Flex, Image, List } from "antd";
+import { Badge, Button, Card, Flex, Image, List, Modal } from "antd";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function CharacterBox({
   id,
@@ -10,6 +11,18 @@ export default function CharacterBox({
   species,
   origin,
 }) {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <Card
       cover={
@@ -26,6 +39,11 @@ export default function CharacterBox({
             renderItem={(item) => <List.Item>{item}</List.Item>}
           />
 				</Badge.Ribbon>
+				<Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+					<p>Some contents...</p>
+					<p>Some contents...</p>
+					<p>Some contents...</p>
+				</Modal>
       </div>
 
     </Card>

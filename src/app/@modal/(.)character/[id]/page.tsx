@@ -22,7 +22,7 @@ const CharacterDetailDrawler = ({ params }: { params: { id: number } }) => {
           setIsOpen(!isOpen);
         }}
         open={isOpen}
-				width={1000}
+				width={'100%'}
 				title={data.name}
 				footer={(_, { OkBtn, CancelBtn }) => (
           <>

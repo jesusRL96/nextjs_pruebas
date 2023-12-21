@@ -33,7 +33,6 @@ const Nav: React.FC = ({ children }) => {
         <div
           style={{
             background: colorBgContainer,
-            minHeight: "100vh",
             padding: 24,
             borderRadius: borderRadiusLG,
           }}

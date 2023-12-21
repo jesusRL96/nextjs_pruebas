@@ -10,7 +10,7 @@ import Nav from "@/components/Nav";
 const inter = Inter({ subsets: ["latin"] });
 
 
-const RootLayout = ({ children }: React.PropsWithChildren) => (
+const RootLayout = ({ children, modal }: React.PropsWithChildren) => (
   <html lang="en">
     <body className={inter.className}>
       <StyledComponentsRegistry>
@@ -18,6 +18,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
 					<Nav>
 						{children}
 					</Nav>
+						{modal}
 				</ConfigProvider>
       </StyledComponentsRegistry>
     </body>
