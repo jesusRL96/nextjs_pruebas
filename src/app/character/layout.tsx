@@ -4,10 +4,8 @@ import React from "react";
 const CharacterLayout = ({ children, detail }) => {
   return (
     <>
-			<Center>
-				{children}
-			</Center>
-				{detail}
+      {children}
+      {detail}
     </>
   );
 };

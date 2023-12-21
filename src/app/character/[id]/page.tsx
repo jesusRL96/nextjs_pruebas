@@ -1,17 +1,12 @@
-"use client";
 import CharacterDetail from "@/components/character/CharacterDetail";
-import useFetch from "@/hooks/fetch/useFetch";
+import useSimpleFetch from "@/hooks/fetch/useSimpleFetch";
 
-const CharacterDetailPage = ({ params }: { params: { id: string } }) => {
+const CharacterDetailPage = async ({ params }: { params: { id: string } }) => {
   const url = `https://rickandmortyapi.com/api/character/${params.id}`;
-  const { loading, data } = useFetch(url, null);
+	const data = await useSimpleFetch(url);
   return (
     <div>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
         <CharacterDetail {...data}></CharacterDetail>
-      )}
     </div>
   );
 };

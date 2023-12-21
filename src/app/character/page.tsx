@@ -1,24 +1,26 @@
-"use client";
-import useFetch from "@/hooks/fetch/useFetch";
-import React, { useState } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
 import CharacterBox from "@/components/character/CharacterBox";
+import useSimpleFetch from "@/hooks/fetch/useSimpleFetch";
+import { Col, Row } from "antd";
 
-const Characters = () => {
+const Characters = async () => {
   const url = "https://rickandmortyapi.com/api/character";
-  const { loading, data } = useFetch(url, {results:[]});
+  const data = await useSimpleFetch(url);
+  const numColumns = 4;
 
   return (
     <>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-          {data.results.map((character) => {
-            return <GridItem w="100%" key={character.id}><CharacterBox {...character}></CharacterBox></GridItem>;
-          })}
-        </Grid>
-      )}
+      <Row gutter={[50, 50]}>
+        {data.results.map((character) => {
+          return (
+            <Col
+              span={24 / numColumns}
+              key={character.id}
+            >
+              <CharacterBox {...character}></CharacterBox>
+            </Col>
+          );
+        })}
+      </Row>
     </>
   );
 };

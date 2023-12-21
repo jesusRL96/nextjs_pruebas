@@ -1,117 +1,51 @@
-"use client";
-
-import {
-  Box,
-  Flex,
-  Avatar,
-  HStack,
-  Text,
-  IconButton,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  AddIcon,
-  MoonIcon,
-  SunIcon,
-} from "@chakra-ui/icons";
+import React from "react";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
 import Link from "next/link";
 
-interface Props {
-  children: React.ReactNode;
-}
+const { Header, Content, Footer } = Layout;
 
-const Links = [{ url: "/character", title: "Character" }];
+const items = [
+  { url: "/", title: "Home" },
+  { url: "/character", title: "Characters" },
+].map((nav, index) => ({
+  key: index + 1,
+  label: <Link href={nav.url}>{nav.title}</Link>,
+}));
 
-export default function Nav({ children }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { colorMode, toggleColorMode } = useColorMode();
+const Nav: React.FC = ({ children }) => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
-    <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={"center"}>
-            <Box>Logo</Box>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map((link, index) => (
-                <Link href={link.url} key={index}>
-                  {link.title}
-                </Link>
-              ))}
-            </HStack>
-          </HStack>
-          <Flex alignItems={"center"}>
-            <Button onClick={toggleColorMode}>
-              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            </Button>
-            <Button
-              variant={"solid"}
-              colorScheme={"teal"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Action
-            </Button>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-              >
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
-        </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
-      </Box>
-
-      <Box p={4}>{children}</Box>
-    </>
+    <Layout>
+      <Header style={{ display: "flex", alignItems: "center" }}>
+        <div className="demo-logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["2"]}
+          items={items}
+          style={{ flex: 1, minWidth: 0 }}
+        />
+      </Header>
+      <Content style={{ padding: "0 5px" }}>
+        <div
+          style={{
+            background: colorBgContainer,
+            minHeight: "100vh",
+            padding: 24,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          {children}
+        </div>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        Ant Design ©2023 Created by Ant UED
+      </Footer>
+    </Layout>
   );
-}
+};
+
+export default Nav;

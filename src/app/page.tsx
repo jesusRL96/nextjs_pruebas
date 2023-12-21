@@ -1,6 +1,9 @@
+import { Button, ConfigProvider } from "antd";
 
-export default function Home() {
-  return (
-		<h1>Hola</h1>
-  )
-}
+import theme from "./theme/themeConfig";
+
+const HomePage = () => (
+	<h1>Home</h1>
+);
+
+export default HomePage;

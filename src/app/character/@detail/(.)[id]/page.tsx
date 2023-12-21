@@ -1,29 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import useFetch from "@/hooks/fetch/useFetch";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Button,
-  Image,
-} from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
 import CharacterDetail from "@/components/character/CharacterDetail";
 
-const CharacterDetailDrawler = ({ params }) => {
+import { Button, Modal } from "antd";
+import { useRouter } from "next/navigation";
+
+const CharacterDetailDrawler = ({ params }: { params: { id: number } }) => {
   const url = `https://rickandmortyapi.com/api/character/${params.id}`;
   const router = useRouter();
   const { loading, data } = useFetch(url, null);
@@ -34,33 +17,21 @@ const CharacterDetailDrawler = ({ params }) => {
   return (
     <>
       <Modal
-        onClose={() => {
+        onCancel={() => {
           router.back();
           setIsOpen(!isOpen);
         }}
-        size="full"
-        isOpen={isOpen}
-				autoFocus={false}
-				returnFocusOnClose={false}
+        open={isOpen}
+				width={1000}
+				title={data.name}
+				footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <CancelBtn />
+          </>
+        )}
+
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{data.name}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-						<CharacterDetail {...data}></CharacterDetail>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={() => {
-                router.back();
-                setIsOpen(!isOpen);
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
+        <CharacterDetail {...data}></CharacterDetail>
       </Modal>
     </>
   );

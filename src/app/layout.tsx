@@ -1,18 +1,27 @@
-import Nav from "@/components/Nav";
-import { Providers } from "./providers";
+"use client"
+import React from "react";
+import { Inter } from "next/font/google";
+import { ConfigProvider } from 'antd';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <Providers>
-          <Nav>{children}</Nav>
-        </Providers>
-      </body>
-    </html>
-  );
-}
+import StyledComponentsRegistry from "../lib/AntdRegistry";
+import theme from "./theme/themeConfig";
+import Nav from "@/components/Nav";
+
+const inter = Inter({ subsets: ["latin"] });
+
+
+const RootLayout = ({ children }: React.PropsWithChildren) => (
+  <html lang="en">
+    <body className={inter.className}>
+      <StyledComponentsRegistry>
+        <ConfigProvider theme={theme}>
+					<Nav>
+						{children}
+					</Nav>
+				</ConfigProvider>
+      </StyledComponentsRegistry>
+    </body>
+  </html>
+);
+
+export default RootLayout;
