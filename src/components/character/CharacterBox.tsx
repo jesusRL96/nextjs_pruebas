@@ -11,8 +11,8 @@ export default function CharacterBox({
   species,
   origin,
 }) {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const showModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
     setIsModalOpen(true);
   };
 
@@ -32,20 +32,29 @@ export default function CharacterBox({
       }
     >
       <div>
-        <Badge.Ribbon text={status} >
+        <Badge.Ribbon
+          text={status}
+          color={`${
+            status === "Alive" ? "green" : status === "Dead" ? "red" : "cyan"
+          }`}
+        >
           <List
-						header={<b>{name}</b>}
+            header={<b>{name}</b>}
             dataSource={[species, origin.name]}
             renderItem={(item) => <List.Item>{item}</List.Item>}
           />
-				</Badge.Ribbon>
-				<Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
-				</Modal>
+        </Badge.Ribbon>
+        <Modal
+          title="Basic Modal"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
       </div>
-
     </Card>
   );
 }
