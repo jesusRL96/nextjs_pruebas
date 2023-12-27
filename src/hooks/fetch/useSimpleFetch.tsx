@@ -1,4 +1,4 @@
-async function useSimpleFetch(url) {
+async function useSimpleFetch(url: string) {
   const res = await fetch(url)
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

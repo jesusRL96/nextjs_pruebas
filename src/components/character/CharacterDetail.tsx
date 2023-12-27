@@ -8,7 +8,7 @@ export default function CharacterDetail({
   species,
   status,
   gender,
-}) {
+}: Character) {
   const data = [species, status, gender];
   return (
     <div>
@@ -18,8 +18,6 @@ export default function CharacterDetail({
         </div>
         <List
           header={<h1>{name}</h1>}
-          position="top"
-          align="start"
           dataSource={data}
           renderItem={(item) => <List.Item>* {item}</List.Item>}
           bordered

@@ -10,7 +10,7 @@ export default function CharacterBox({
   status,
   species,
   origin,
-}) {
+}: Character) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);

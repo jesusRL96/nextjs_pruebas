@@ -12,7 +12,7 @@ const items = [
   label: <Link href={nav.url}>{nav.title}</Link>,
 }));
 
-const Nav: React.FC = ({ children }: React.ReactNode) => {
+const Nav = ({ children }: {children: React.ReactNode}) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
