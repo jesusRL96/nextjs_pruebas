@@ -6,6 +6,7 @@ import { ConfigProvider } from "antd";
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 import theme from "./theme/themeConfig";
 import Nav from "@/components/Nav";
+import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ const RootLayout = (props: {
     <body className={inter.className}>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
-          <Nav>{props.children}</Nav>
+          <AuthProvider>
+            <Nav>{props.children}</Nav>
+          </AuthProvider>
           {props.modal}
         </ConfigProvider>
       </StyledComponentsRegistry>
