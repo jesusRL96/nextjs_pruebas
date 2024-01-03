@@ -20,7 +20,6 @@ const Characters = () => {
   }, [page]);
 
   const onChange = (current: number, pageSize: number) => {
-    console.log(current, pageSize);
     setPage(current);
   };
 

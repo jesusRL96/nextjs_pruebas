@@ -1,12 +1,11 @@
-"use client";
 import React from "react";
 import { Inter } from "next/font/google";
 import { ConfigProvider } from "antd";
 
 import StyledComponentsRegistry from "../lib/AntdRegistry";
-import theme from "./theme/themeConfig";
 import Nav from "@/components/Nav";
 import AuthProvider from "@/components/AuthProvider";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +16,10 @@ const RootLayout = (props: {
   <html lang="en">
     <body className={inter.className}>
       <StyledComponentsRegistry>
-        <ConfigProvider theme={theme}>
-          <AuthProvider>
-            <Nav>{props.children}</Nav>
-          </AuthProvider>
-          {props.modal}
-        </ConfigProvider>
+        <AuthProvider>
+          <Nav>{props.children}</Nav>
+        </AuthProvider>
+        {props.modal}
       </StyledComponentsRegistry>
     </body>
   </html>

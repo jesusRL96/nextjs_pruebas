@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+"use client"
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
@@ -13,17 +13,14 @@ const items = [
 ];
 
 const Nav = ({ children }: { children: React.ReactNode }) => {
-  const { data: session, status } = useSession();
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+	const {status, data:session} = useSession()
+  // const session = await getServerSession(nextAuthOptions);
 
   const links = [
     ...items,
     {
-      url: status === "authenticated" ? "/api/auth/signout" : "api/auth/signin",
-      title: status === "authenticated" ? "logout" : "signin",
+      url: session ? "/api/auth/signout" : "api/auth/signin",
+      title: session ? "logout" : "signin",
     },
   ].map((nav, index) => ({
     key: index + 1,
@@ -43,15 +40,7 @@ const Nav = ({ children }: { children: React.ReactNode }) => {
         />
       </Header>
       <Content style={{ padding: "0 5px" }}>
-        <div
-          style={{
-            background: colorBgContainer,
-            padding: 24,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-          {children}
-        </div>
+        <div>{children}</div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Ant Design ©2023 Created by Ant UED
